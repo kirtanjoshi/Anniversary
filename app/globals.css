@@ -936,10 +936,32 @@ p.dropcap::first-letter {
 
 /* ───────────── 30 closing ───────────── */
 
-.closing .polaroid { padding-bottom: 3.2%; }
-.closing__text { position: absolute; top: 11%; left: 57%; right: 8%; font-size: 0.95em; }
-.closing__text p:not(.script) { margin-bottom: 0.85em; }
-.closing__hi { margin-bottom: 0.45em; font-size: 2.6em; line-height: 1.15; color: var(--wine); }
+.closing { position: absolute; inset: 0; }
+.closing__text { position: absolute; top: 7%; left: 49%; right: 7%; font-size: 0.95em; z-index: 5; pointer-events: none; }
+.closing__text > * { pointer-events: auto; }
+.closing__text p:not(.script) { margin-bottom: 0.75em; line-height: 1.45; }
+.closing__hi { margin-bottom: 0.35em; font-size: 2.5em; line-height: 1.15; color: var(--wine); }
+
+.closing .polaroid {
+  cursor: pointer;
+  padding: 2.4% 2.4% 0.4%;
+  background: #fdfbf7;
+  border-radius: 1px;
+  box-shadow: 0 0.8cqw 2.4cqw rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease;
+}
+.closing .polaroid:hover,
+.closing .polaroid.is-focused {
+  transform: scale(1.08) rotate(0deg) !important;
+  box-shadow: 0 2cqw 4.5cqw rgba(0, 0, 0, 0.42), 0 0 0 2px rgba(210, 80, 106, 0.35);
+  z-index: 25 !important;
+}
+.closing .polaroid figcaption {
+  text-align: center;
+  color: var(--ink);
+  font-size: 1.15em;
+  padding: 0.25em 0 0.45em;
+}
 
 /* ───────────── 31 back cover ───────────── */
 

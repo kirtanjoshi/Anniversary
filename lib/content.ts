@@ -82,5 +82,5 @@ export const timeline: [number, string][] = [
 export const closing = [
   "This magazine has a print run of one, and it will never sell out — there is only one reader it was ever made for.",
   "If you’ve reached this page, thank you for flipping through five years with me, and for being the best part of every single one of them.",
-  "Happy anniversary, my love. Here’s to the next issue — and every one after that.",
+  "Happy anniversary, my love. Here’s to the next part — and every one after that.",
 ];

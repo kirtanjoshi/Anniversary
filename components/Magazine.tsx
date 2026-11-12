@@ -145,12 +145,63 @@ const STATS: [number, string][] = [
 
 const EVERYDAY = ["peace", "pout", "towel", "glasses", "mirror", "dark-selfie", "panda-call", "helmet-shop", "red-jacket"];
 const MOSAIC = ["basantapur-walk", "hearts", "nineteen", "lake", "neon", "peace", "bday-table", "school-snap", "boudha-bouquet", "elevator-mirror", "crew-night", "friday-12-aug"];
-const PILE: [string, CSSProperties][] = [
-  ["elevator-mirror", { left: "6%", top: "6%", width: "38%", rotate: "-7deg" }],
-  ["street-selfie-2", { left: "11%", top: "33%", width: "40%", rotate: "5deg", "--ar": "4/3" } as CSSProperties],
-  ["cafe-mirror-2", { left: "4%", top: "56%", width: "36%", rotate: "-3deg" }],
-  ["peace", { left: "22%", bottom: "5%", width: "34%", rotate: "8deg" }],
-];
+function Closing() {
+  const [active, setActive] = useState<string | null>(null);
+
+  const photos = [
+    {
+      s: "elevator-mirror",
+      caption: "us, always",
+      style: { left: "5%", top: "6%", width: "37%", rotate: "-3deg", zIndex: active === "elevator-mirror" ? 15 : 1 },
+    },
+    {
+      s: "street-selfie-2",
+      caption: "Kathmandu walks",
+      style: {
+        left: "8%",
+        top: "42%",
+        width: "40%",
+        rotate: "3deg",
+        "--ar": "4/3",
+        zIndex: active === "street-selfie-2" ? 15 : 2,
+      } as CSSProperties,
+    },
+    {
+      s: "cafe-mirror-2",
+      caption: "my favourite view",
+      style: { left: "4%", bottom: "5%", width: "35%", rotate: "-2deg", zIndex: active === "cafe-mirror-2" ? 15 : 3 },
+    },
+    {
+      s: "peace",
+      caption: "forever with you",
+      style: { right: "6%", bottom: "5%", width: "37%", rotate: "3deg", zIndex: active === "peace" ? 15 : 4 },
+    },
+  ];
+
+  return (
+    <div className="closing" onClick={() => setActive(null)}>
+      {photos.map(({ s, caption, style }) => (
+        <figure
+          key={s}
+          className={`polaroid${active === s ? " is-focused" : ""}`}
+          style={style}
+          onClick={(e) => {
+            e.stopPropagation();
+            setActive((curr) => (curr === s ? null : s));
+          }}
+        >
+          <Img s={s} />
+          <figcaption>{caption}</figcaption>
+        </figure>
+      ))}
+      <div className="closing__text">
+        <p className="script closing__hi">Happy anniversary,</p>
+        <Paras list={C.closing} />
+        <p className="script sign">— {C.SIGNATURE}</p>
+      </div>
+    </div>
+  );
+}
 
 // Back cover hearts drifting up: [left, size, duration, delay (negative = already mid-air), sideways drift]
 const FLOAT: [string, string, string, string, string][] = [
@@ -742,20 +793,7 @@ export const PAGES: Spec[] = [
   /* 30 */
   {
     tone: "paper",
-    body: (
-      <div className="closing">
-        {PILE.map(([s, style]) => (
-          <figure key={s} className="polaroid" style={style}>
-            <Img s={s} />
-          </figure>
-        ))}
-        <div className="closing__text">
-          <p className="script closing__hi">Happy anniversary,</p>
-          <Paras list={C.closing} />
-          <p className="script sign">— {C.SIGNATURE}</p>
-        </div>
-      </div>
-    ),
+    body: <Closing />,
   },
   /* 31 — back cover */
   {
